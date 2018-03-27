@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta name="full-screen" content="yes">
+  <meta name="x5-fullscreen" content="true">
+  <title>Love</title>
+  <style>
+    * {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      background: #000 url("love/images/sea.jpg") no-repeat;
+      background-position: center !important;
+      background-size: cover !important;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .timewrap {
+      position: absolute;
+      bottom: 20px;
+      right: 0;
+      width: 100%;
+      padding: 10px;
+    }
+
+    .text {
+      vertical-align: sub;
+      color: #ddd;
+      font-size: 16px;
+    }
+
+    .daybox .nums {
+      vertical-align: sub;
+      font-size: 35px;
+      font-weight: 700;
+    }
+
+    #seconds {
+      font-size: 60px;
+    }
+
+    .ctbox {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 36px;
+    }
+
+    .aitf {
+      letter-spacing: 0;
+      text-shadow: 0 0 80px rgba(255, 255, 255, 0.973);
+      background: url(http://f.cl.ly/items/010q3E1u3p2Q0j1L1S1o/animated_text_fill.png) repeat-y;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-animation: aitf 80s linear infinite;
+      -webkit-transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+    }
+
+    @-webkit-keyframes aitf {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="timewrap">
+    <div class="itembox">
+      <p class="ctbox">我们在一起</p>
+      <p class="daybox">
+        <span id="days" class="nums aitf">--</span>
+        <span class="text">天</span>
+        <span id="hours" class="nums aitf">--</span>
+        <span class="text">小时</span>
+        <span id="minutes" class="nums aitf">--</span>
+        <span class="text">分钟</span>
+        <span id="seconds" class="nums aitf">--</span>
+        <span class="text">秒</span>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      console.log("DOM fully loaded and parsed");
+
+      document.addEventListener('touchmove', function (event) {
+        event.preventDefault()
+      }, false);
+
+      var url = Math.ceil(Math.random() * 20);
+      document.body.style.background = "#000 url('./love/images/" + url + ".jpg') no-repeat";
+
+      setInterval(datesDif, 1000);
+    });
+
+    function datesDif() {
+      var pZreo = function(num) {
+        if (num < 10) {
+          return '0' + num;
+        }
+        return num;
+      }
+      var nowDate = new Date()
+      var difDate = Date.parse(nowDate) - Date.parse('2016/11/11 00:00:00')
+      
+
+      // 计算出相差天数  
+      var days = Math.floor(difDate / (24 * 3600 * 1000))
+      // 计算出小时数  
+      var leaveH = difDate % (24 * 3600 * 1000)  // 计算天数后剩余的毫秒数  
+      var hours = Math.floor(leaveH / (3600 * 1000))
+      // 计算相差分钟数  
+      var leaveM = leaveH % (3600 * 1000)  // 计算小时数后剩余的毫秒数  
+      var minutes = Math.floor(leaveM / (60 * 1000))
+      // 计算相差秒数  
+      var leaveS = leaveM % (60 * 1000)  // 计算分钟数后剩余的毫秒数  
+      var seconds = Math.round(leaveS / 1000)
+
+      // console.log("" + days + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒")
+
+      document.getElementById('days').innerHTML = days;
+      document.getElementById('hours').innerHTML = pZreo(hours);
+      document.getElementById('minutes').innerHTML = pZreo(minutes);
+      document.getElementById('seconds').innerHTML = pZreo(seconds);
+    }
+  </script>
+</body>
+
+</html>
